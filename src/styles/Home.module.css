@@ -1,0 +1,15 @@
+.bg_landing {
+    background-image: url(/bg-landing.png);
+}
+.bg_history {
+    background-image: url(/bg-2.png);
+}
+.bg_payment {
+    background-image: url(/payment.jpg);
+}
+.bg_order {
+    background-image: url(/bg-1.png);
+}
+.bg_profile {
+    background-image: url(/profile.jpg);
+}
