@@ -47,62 +47,62 @@ function Header({token}) {
         </div>
         <div className="flex-1 hidden lg:flex items-center justify-center gap-2 lg:gap-7">
           <Link href="/" className="text-base text-secondary hover:font-bold w-20 text-center">
-                        Home
+              Home
           </Link>
 
           {profile.role === 'superadmin' ? (<Link href="/admin/product" className="text-base text-secondary hover:font-bold w-20 text-center">
-                        Product
+            Product
           </Link>) : 
             (<Link href="/product" className="text-base text-secondary hover:font-bold w-20 text-center">
-                        Product
+              Product
             </Link>)}
           <Link href="/payment-and-delivery" className="text-base text-secondary hover:font-bold w-20 text-center">
-                        Your Cart
+            Your Cart
           </Link>
           <Link href="/history" className="text-base text-secondary hover:font-bold w-20 text-center">
-                        History
+            History
           </Link>
         </div>
         {!token && <div className="flex-1 hidden lg:flex items-center justify-end">
           <Link href="/auth/login" className="btn btn-ghost rounded-full lg:w-36 text-base text-primary capitalize">
-                        Login
+            Login
           </Link>
           <Link href="/auth/register" className="btn btn-accent rounded-full lg:w-36 text-base text-primary capitalize">
-                        Sign Up
+            Sign Up
           </Link>
         </div>}
         {token && 
-                    <div className="flex-1 hidden lg:flex justify-end items-center gap-6">
-                      {router.pathname !== '/product' && router.pathname !== '/' && <>
-                        {profile?.role === 'general' && <Link href="/product" className="flex justify-center items-center">
-                          <LuSearch className="text-primary" size={27}/>
-                        </Link>} </>}
-                      {router.pathname !== '/admin/product' && router.pathname !== '/' && <>
-                        {profile?.role === 'superadmin' && <Link href="/admin/product" className="flex flex-col justify-center items-center">
-                          <LuSearch className="text-primary" size={27}/>
-                        </Link>}</>}
+          <div className="flex-1 hidden lg:flex justify-end items-center gap-6">
+            {router.pathname !== '/product' && router.pathname !== '/' && <>
+              {profile?.role === 'general' && <Link href="/product" className="flex justify-center items-center">
+                <LuSearch className="text-primary" size={27}/>
+              </Link>} </>}
+            {router.pathname !== '/admin/product' && router.pathname !== '/' && <>
+              {profile?.role === 'superadmin' && <Link href="/admin/product" className="flex flex-col justify-center items-center">
+                <LuSearch className="text-primary" size={27}/>
+              </Link>}</>}
 
-                      <button className='text-secondary'><BiChat size={30}/></button>
+            <button className='text-secondary'><BiChat size={30}/></button>
 
-                      <div className="dropdown dropdown-end">
-                        <button tabIndex={0} className="w-16 h-16 overflow-hidden rounded-full">
-                          {profile?.picture ? (<Image width={150} height={150} className="object-fit" src={profile.picture} alt="userImage"/>) 
-                            : (<Image className="object-fit" src={User} alt="user"/>) }
-                        </button>
-                        <ul tabIndex={0} className="dropdown-content flex justify-center items-center menu p-2 pb-4 gap-4 shadow bg-white rounded-box w-60">
-                          <span href="/cart" className="font-bold text-base text-secondary hover:font-bold w-full text-center">
-                            {profile?.fullName}
-                          </span>
-                          <Link href="/user/profile" className="text-base text-secondary hover:font-bold w-20 text-center">
-                                    Profile
-                          </Link>
-                          {token && <button onClick={doLogout} className="flex justify-center gap-3 text-base text-secondary hover:font-bold w-20 text-center w-full">
-                            <MdOutlineLogout size={25}/>
-                                    Log out
-                          </button>}
-                        </ul>
-                      </div>
-                    </div>}
+            <div className="dropdown dropdown-end">
+              <button tabIndex={0} className="w-16 h-16 overflow-hidden rounded-full">
+                {profile?.picture ? (<Image width={150} height={150} className="object-fit" src={profile.picture} alt="userImage"/>) 
+                  : (<Image className="object-fit" src={User} alt="user"/>) }
+              </button>
+              <ul tabIndex={0} className="dropdown-content flex justify-center items-center menu p-2 pb-4 gap-4 shadow bg-white rounded-box w-60">
+                <span href="/cart" className="font-bold text-base text-secondary hover:font-bold w-full text-center">
+                  {profile?.fullName}
+                </span>
+                <Link href="/user/profile" className="text-base text-secondary hover:font-bold w-20 text-center">
+                          Profile
+                </Link>
+                {token && <button onClick={doLogout} className="flex justify-center gap-3 text-base text-secondary hover:font-bold w-20 text-center w-full">
+                  <MdOutlineLogout size={25}/>
+                          Log out
+                </button>}
+              </ul>
+            </div>
+          </div>}
         <div className="block lg:hidden dropdown dropdown-end z-10">
           <label tabIndex={0}>
             <HiOutlineViewList size={30} className="text-secondary" />
