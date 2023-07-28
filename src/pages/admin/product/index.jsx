@@ -3,7 +3,8 @@ import Header from '@/components/Header';
 import Image from 'next/image';
 import React from 'react';
 import food from '@/assets/foods.png';
-import { IoPencilSharp, IoMdOptions } from 'react-icons/io5';
+import { IoPencilSharp} from 'react-icons/io5';
+import {IoMdOptions} from 'react-icons/io';
 import ProductImage from '@/assets/ecommerce-default-product.png';
 import {LuSearch} from 'react-icons/lu';
 
@@ -48,12 +49,11 @@ function ProductAdmin({token}) {
   const [sortBy, setSortBy] = React.useState('DESC');
   const router = useRouter();
 
-  const getProduct = React.useCallback(async (search='', category = '', limit = 50, sortBy='', page=1) => {
+  const getProduct = React.useCallback(async (search='', category = '', limit = 50, sortBy='', page= 1) => {
     try {
       const { data } = await http().get('/products', { params: {search, category, limit, sortBy, page} });
       setProducts(data.results);
       setTotalPage(data.pageInfo.totalPage);
-      console.log(data);
     } catch (error) {
       const message = error?.response?.data?.message;
       return console.log(message);
@@ -64,7 +64,6 @@ function ProductAdmin({token}) {
     try {
       const {data} = await http().get('/categories');
       setCategory(data.results);
-      console.log(data);
     } catch (error) {
       const message = error?.response?.data?.message;
       return console.log(message);
@@ -143,8 +142,8 @@ function ProductAdmin({token}) {
                     <div className='flex flex-col gap-1 px-2 py-1'>
                       <label className='font-semibold text-md'>SortBy</label>
                       <select onChange={(e)=> setSortBy(e.target.value)} className="select select-primary w-full max-w-xs">
-                        <option>ASC</option>
                         <option>DESC</option>
+                        <option>ASC</option>
                       </select>
                     </div>
                   </ul>
@@ -153,8 +152,8 @@ function ProductAdmin({token}) {
             </div>
             <div className="w-full flex justify-center items-center text-black px-2 mb-11">
               <div className="px-11 xl:px-24 w-full flex items-center justify-between gap-5 overflow-scroll scrollbar-hide">
-                <div className="flex justify-center items-center">
-                  <button className="text-secondary text-lg font-semibold h-full border-b-2 border-secondary w-40">Fafourite Product</button>
+                <div className="flex justify-center items-center ">
+                  <button onClick={() => setInCategory('')} className={`text-secondary text-lg font-semibold h-full ${inCategory === '' && 'border-b-2'} border-secondary w-40`}>Fafourite Product</button>
                 </div>
                 {category.map(items =>{
                   return(
@@ -189,13 +188,13 @@ function ProductAdmin({token}) {
                   </label>
                 );
               })}
-              <div className='flex gap-5 justify-center items-center'>
-                {page === 1 ? <button className="btn btn-neutral normal-case">Back</button> :
-                  <button onClick={()=> setPage(page-1)} className="btn btn-primary normal-case">Back</button>}
-                <p className='text-primary font-semibold'>{page}</p>
-                {page === totalPage ? <button className="btn btn-neutral normal-case">Next</button> : 
-                  <button onClick={()=> setPage(page+1)} className="btn btn-primary normal-case">Next</button>}
-              </div>
+            </div>
+            <div className='flex gap-5 justify-center items-center w-full'>
+              {page === 1 ? <button className="btn btn-neutral normal-case">Back</button> :
+                <button onClick={()=> setPage(page-1)} className="btn btn-primary normal-case">Back</button>}
+              <p className='text-primary font-semibold'>{page}</p>
+              {page === totalPage ? <button className="btn btn-neutral normal-case">Next</button> : 
+                <button onClick={()=> setPage(page+1)} className="btn btn-primary normal-case">Next</button>}
             </div>
             <div className="w-full text-center px-11 xl:px-24 py-11">
               <Link href="/admin/new-product" className="btn btn-secondary w-full capitalize text-white">Add new product</Link>
