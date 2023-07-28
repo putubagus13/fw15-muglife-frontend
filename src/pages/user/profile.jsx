@@ -202,7 +202,7 @@ function Profile({ token }) {
                             <div className="flex w-full flex-col items-start gap-3 border-b border-primary">
                               <div className="text-lg text-accent">Mobile Number :</div>
                               {!editContacts && <div className="text-primary">{profile.phoneNumber}</div>}
-                              {editContacts && <input onChange={handleChange} onBlur={handleBlur} value={values.phoneNumber} name="phoneNumber" type="number" className="outline-none text primary" />}
+                              {editContacts && <input onChange={handleChange} onBlur={handleBlur} value={values.phoneNumber} name="phoneNumber" type="number" className="outline-none text-primary" />}
                             </div>
                           </div>
                         </div>
