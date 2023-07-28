@@ -31,6 +31,7 @@ export const getServerSideProps = withIronSessionSsr(async function getServerSid
 
 function Profile({ token }) {
   const profile = useSelector((state) => state.profile.data);
+  console.log(profile);
   const dispatch = useDispatch();
   const fullname = profile?.fullName;
   let nameLength;
@@ -54,7 +55,7 @@ function Profile({ token }) {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [pictureURI, setPictureURI] = React.useState('');
-  const [selectedPicture, setSelectedPicture] = React.useState({});
+  const [selectedPicture, setSelectedPicture] = React.useState(null);
 
   const doEditContact = () => {
     setEditContacts(!editContacts);
@@ -93,7 +94,6 @@ function Profile({ token }) {
       }
     });
     form.append('fullName', fullName);
-
     if (selectedPicture) {
       form.append('picture', selectedPicture);
     }
@@ -137,9 +137,9 @@ function Profile({ token }) {
             username: profile?.username || '',
             email: profile?.email || '',
             phoneNumber: profile?.phoneNumber,
-            gender: profile?.gender ? '1' : '0',
+            gender: profile?.gender,
             address: profile?.address || '',
-            birthDate: (profile?.birthDate && moment(profile.birthDate).format('YYYY/MM/DD')) || '',
+            birthDate: profile?.birthDate || '',
           }}
           onSubmit={doEditPicture}
           enableReinitialize
@@ -245,20 +245,20 @@ function Profile({ token }) {
                             <div className="flex w-full flex-col items-start gap-3 border-b border-primary">
                               <div className="text-lg text-accent">DD/MM/YY</div>
                               {!editDetails ? (
-                                <div className="text-primary">{profile.birthDate === null ? '-' : moment(profile.birthDate).format('DD/MM/YY')}</div>
+                                <div className="text-primary">{profile.birthDate === null ? '-' : moment(profile.birthDate).format('DD/MM/YYYY')}</div>
                               ) : (
-                                <input onChange={handleChange} onBlur={handleBlur} value={values.birthDate} type="date" className="outline-none text-primary" />
+                                <input onChange={handleChange} onBlur={handleBlur} value={values.birthDate} type="date" name='birthDate' className="outline-none text-primary" />
                               )}
                             </div>
                             <div className="flex w-full flex-col items-start gap-3 ">
                               <div className="text-lg text-primary flex items-center gap-3">
-                                {!editDetails && <input onChange={handleChange} onBlur={handleBlur} type="radio" name="gender" id="genChoiceMale" value={profile?.gender} />}
-                                {editDetails && <input onChange={handleChange} onBlur={handleBlur} type="radio" name="gender" id="genChoiceMale" value="0" />}
+                                {!editDetails && <input onChange={handleChange} onBlur={handleBlur} type="radio" name="gender" id="genChoiceMale" checked={profile?.gender === false} />}
+                                {editDetails && <input onChange={handleChange} onBlur={handleBlur} type="radio" name="gender" id="genChoiceMale" value={false} />}
                                 <label htmlFor="genChoiceMale">Male</label>
                               </div>
                               <div className="text-lg text-primary flex items-center gap-3">
-                                {!editDetails && <input onChange={handleChange} onBlur={handleBlur} type="radio" name="gender" id="genChoiceFem" value={profile?.gender} />}
-                                {editDetails && <input onChange={handleChange} onBlur={handleBlur} type="radio" name="gender" id="genChoiceFem" value="1" />}
+                                {!editDetails && <input onChange={handleChange} onBlur={handleBlur} type="radio" name="gender" id="genChoiceFem" checked={profile?.gender === true} />}
+                                {editDetails && <input onChange={handleChange} onBlur={handleBlur} type="radio" name="gender" id="genChoiceFem" value={true} />}
                                 <label htmlFor="genChoiceFem">Female</label>
                               </div>
                             </div>
