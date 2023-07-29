@@ -40,34 +40,34 @@ function Header({token}) {
 
   return (
     <nav className="fixed bg-white z-10 w-full">
-      <div className="w-full h-28 flex items-center justify-between px-11 lg:px-24 xl:px-40 shadow-sm">
+      <div className="w-full h-20 lg:h-28 flex items-center justify-between px-11 lg:px-24 xl:px-40 shadow-md">
         <div className="flex-1 flex items-center justify-start">
           <Image width={100} height={50} priority={true} src={logo} alt="logo-head" className='w-[100px] h-[50px]' />
         </div>
         <div className="flex-1 hidden lg:flex items-center justify-center gap-2 lg:gap-7">
           <Link href="/" className="text-base text-secondary hover:font-bold w-20 text-center">
-                        Home
+              Home
           </Link>
 
           {profile.role === 'superadmin' ? (<Link href="/admin/product" className="text-base text-secondary hover:font-bold w-20 text-center">
-                        Product
+            Product
           </Link>) : 
             (<Link href="/product" className="text-base text-secondary hover:font-bold w-20 text-center">
-                        Product
+              Product
             </Link>)}
           <Link href="/payment-and-delivery" className="text-base text-secondary hover:font-bold w-20 text-center">
-                        Your Cart
+            Your Cart
           </Link>
           <Link href="/history" className="text-base text-secondary hover:font-bold w-20 text-center">
-                        History
+            History
           </Link>
         </div>
         {!token && <div className="flex-1 hidden lg:flex items-center justify-end">
           <Link href="/auth/login" className="btn btn-ghost rounded-full lg:w-36 text-base text-primary capitalize">
-                        Login
+            Login
           </Link>
           <Link href="/auth/register" className="btn btn-accent rounded-full lg:w-36 text-base text-primary capitalize">
-                        Sign Up
+            Sign Up
           </Link>
         </div>}
         {token && 
@@ -108,6 +108,7 @@ function Header({token}) {
                         </ul>
                       </div>
                     </div>}
+
         <div className="block lg:hidden dropdown dropdown-end z-10">
           <label tabIndex={0}>
             <HiOutlineViewList size={30} className="text-secondary" />

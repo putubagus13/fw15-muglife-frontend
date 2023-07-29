@@ -24,6 +24,7 @@ import styles from '../styles/Home.module.css';
 import { withIronSessionSsr } from 'iron-session/next';
 import cookieConfig from '@/helpers/cookieConfig';
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 export const getServerSideProps = withIronSessionSsr(async function getServerSideProps({ req, res }) {
   const token = req.session?.token || null;
@@ -38,10 +39,19 @@ const Landing = ({ token }) => {
   const profile = useSelector((state) => state.profile.data);
   const role = profile.role;
 
+  const router = useRouter();
+
+  const search = () => {
+    if (role === 'superadmin'){
+      router.replace('/admin/product/');
+    }else{
+      router.replace('/product/');
+    }
+  };
+
   return (
     <div>
       <title>Welcome to MugLife</title>
-
       <Navbar token={token} />
       {/* Header Landing */}
       <header className={`${styles.bg_landing} hero h-[100vh] w-full md:px-20`}>
@@ -56,7 +66,7 @@ const Landing = ({ token }) => {
           <div className="flex-1 flex flex-row py-2 md:py-36">
             <div className="pt-[20px] relative w-full px-16">
               <BiSearch className="absolute top-9 left-20 w-8 h-8" />
-              <input placeholder="Search" className="flex justify-end w-full h-16 pl-16 focus:outline-none bg-[#EFEEEE] rounded-[30px]" />
+              <input onChange={search} placeholder="Search" className="flex justify-end w-full h-16 pl-16 focus:outline-none bg-[#EFEEEE] rounded-[30px]" />
             </div>
           </div>
         </div>
@@ -137,11 +147,11 @@ const Landing = ({ token }) => {
           <p className="text-[#846c60] text-[16px] leading-[30px] ">Let’s choose and have a bit taste of poeple’s favorite. It might be yours too!</p>
         </div>
         <div className="lg:flex justify-center items-center px-3 lg:px-5 lg:w-full">
-          <div className="lg:carousel carousel-center lg:flex gap-20 w-full lg:px-5 justify-center">
+          <div className="lg:carousel carousel-center lg:flex gap-5 gap-20 w-full lg:px-5 justify-center">
             <div className="carousel-item">
               <div className="w-80 flex flex-col justify-center items-center py-5 border-2 bg-white rounded-[10px] pt-[62px] pb-[50px] mb-[30px]">
                 <div className="mb-[30px] leading-[30px]">
-                  <Image height={140} width={140} priority={true} src={food1} alt="food1" className="rounded-[50%] shadow-xl mb-[53px]" />
+                  <Image src={food1} alt="food1" className="rounded-[50%] shadow-xl mb-[53px]" />
                   <p className="text-[18px] leading-[30px] font-bold">Hazelnut Latte</p>
                 </div>
                 <div className="flex flex-col grow gap-5 my-8">

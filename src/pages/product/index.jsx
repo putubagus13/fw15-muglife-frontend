@@ -119,8 +119,8 @@ function Product({ token }) {
                     <div className='flex flex-col gap-1 px-2 py-1'>
                       <label className='font-semibold text-md'>SortBy</label>
                       <select onChange={(e)=> setSortBy(e.target.value)} className="select select-primary w-full max-w-xs">
-                        <option>ASC</option>
                         <option>DESC</option>
+                        <option>ASC</option>
                       </select>
                     </div>
                   </ul>
@@ -129,9 +129,9 @@ function Product({ token }) {
             </div>
             <div className="w-full flex justify-center items-center text-black px-2 mb-11">
               <div className="px-11 xl:px-24 w-full flex items-center justify-between gap-5 overflow-scroll scrollbar-hide">
-                {/* <div className="flex justify-center items-center ">
-                                    <button className="text-secondary text-lg font-semibold h-full border-b-2 border-secondary w-40">Fafourite Product</button>
-                                </div> */}
+                <div className="flex justify-center items-center ">
+                  <button onClick={() => setInCategory('')} className={`text-secondary text-lg font-semibold h-full ${inCategory === '' && 'border-b-2'} border-secondary w-40`}>Fafourite Product</button>
+                </div>
                 {category.map((items) => {
                   return (
                     <div key={`category-${items.id}`} className={`flex justify-center items-center text-secondary hover:text-accent ${items.name === inCategory && 'border-b-2 border-secondary font-semibold '}`}>
@@ -162,13 +162,13 @@ function Product({ token }) {
                   </button>
                 );
               })}
-              <div className='flex gap-5 justify-center items-center'>
-                {page === 1 ? <button className="btn btn-neutral normal-case">Back</button> :
-                  <button onClick={()=> setPage(page-1)} className="btn btn-primary normal-case">Back</button>}
-                <p className='text-primary font-semibold'>{page}</p>
-                {page === totalPage ? <button className="btn btn-neutral normal-case">Next</button> : 
-                  <button onClick={()=> setPage(page+1)} className="btn btn-primary normal-case">Next</button>}
-              </div>
+            </div>
+            <div className='flex gap-5 justify-center items-center py-10 w-full'>
+              {page === 1 ? <button className="btn btn-neutral normal-case">Back</button> :
+                <button onClick={()=> setPage(page-1)} className="btn btn-primary normal-case">Back</button>}
+              <p className='text-primary font-semibold'>{page}</p>
+              {page === totalPage ? <button className="btn btn-neutral normal-case">Next</button> : 
+                <button onClick={()=> setPage(page+1)} className="btn btn-primary normal-case">Next</button>}
             </div>
           </div>
         </div>
