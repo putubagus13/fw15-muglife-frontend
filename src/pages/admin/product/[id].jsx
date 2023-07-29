@@ -56,7 +56,6 @@ const ProductDetails = ({token}) => {
       const {data} = await http().get('/products/'+ id);
       setProduct(data.results);
       setVariant(data.results.variant);
-      console.log(data.results.variant);
 
     } catch (error) {
       const message = error?.response?.data?.message;

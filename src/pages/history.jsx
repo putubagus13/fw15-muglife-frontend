@@ -36,7 +36,6 @@ const History = ({ token }) => {
             return console.log('error fetching data');
         }
     }, []);
-    console.log(history);
     React.useEffect(() => {
         getHistory();
     }, [getHistory]);

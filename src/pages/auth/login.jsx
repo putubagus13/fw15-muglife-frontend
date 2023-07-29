@@ -52,7 +52,7 @@ function Login() {
         }).toString();
 
         const { data } = await axios.post('/api/login', form);
-        console.log(data);
+  
         if (data.success === false) {
             setErrorMessage(data.message);
             setLoading(false);

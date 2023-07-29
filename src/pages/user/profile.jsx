@@ -85,7 +85,6 @@ function Profile({ token }) {
         } else {
             fullName = values.firstName + ' ' + values.lastName;
         }
-        console.log(fullName);
         const form = new FormData();
         Object.keys(values).forEach((key) => {
             if (values[key]) {
@@ -103,7 +102,6 @@ function Profile({ token }) {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            console.log(data);
             dispatch(setProfile(data.results));
             setPictureURI('');
             setEditContacts(false);

@@ -37,7 +37,6 @@ function Product({ token }) {
       const { data } = await http().get('/products', { params: {search, category, limit, sortBy, page} });
       setProducts(data.results);
       setTotalPage(data.pageInfo.totalPage);
-      console.log(data);
     } catch (error) {
       const message = error?.response?.data?.message;
       return console.log(message);
@@ -48,7 +47,6 @@ function Product({ token }) {
     try {
       const { data } = await http().get('/categories');
       setCategory(data.results);
-      console.log(data);
     } catch (error) {
       const message = error?.response?.data?.message;
       return console.log(message);

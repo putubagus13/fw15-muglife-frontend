@@ -130,7 +130,7 @@ const EditProduct = ({token}) => {
     setOpenModoal(true);
     values.variant = VARIANT.filter((item) => values.variant.includes(item.code));
     values.variant.forEach((item, index) => {
-      console.log(count);
+      // console.log(count);
       values.variant[index].quantity = parseInt(count);
       values.variant[index].price = values.price;
       switch (values.variant[index].code) {

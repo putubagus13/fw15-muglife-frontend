@@ -88,7 +88,6 @@ function NewProduct({token}) {
     getDataCategory();
   }, []);
 
-  console.log(btnHD);
   const handleDelivery = (deliver) => {
     if (deliver === 'homeDelivery') {
       setBtnHD('btn-accent');
@@ -177,7 +176,6 @@ function NewProduct({token}) {
         'Content-Type': 'multipart/form-data',
       },
     });
-    console.log(data);
     router.push('/admin/product');
     setOpenModoal(false);
   };

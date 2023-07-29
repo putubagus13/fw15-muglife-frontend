@@ -68,17 +68,17 @@ function ResetPassword() {
             // successMessage("")
             const { value: newPassword } = event.target.newPassword;
             const { value: confirmPassword } = event.target.confirmPassword;
-            console.log(email, newPassword, confirmPassword);
+    
 
             const form = new URLSearchParams({
                 email,
                 newPassword,
                 confirmPassword,
             }).toString();
-            console.log(form);
+     
 
             const { data } = await http().post('/auth/resetPassword', form);
-            console.log(data);
+   
             if (data.message) {
                 setSuccessMessage(data.message);
                 router.push('/auth/login');
