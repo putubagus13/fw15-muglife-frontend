@@ -50,7 +50,6 @@ const History = ({ token }) => {
             <h1 className="text-white text-4xl font-bold">Let’s see what you have bought!</h1>
             <p className="text-white">Long press to delete item</p>
           </div>
-
           <div className="flex flex-col justify-center items-center pt-20 px-11">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 cursor-pointer">
               {history.map((item) => {

@@ -38,6 +38,7 @@ export const getServerSideProps = withIronSessionSsr(async function getServerSid
 const Landing = ({ token }) => {
   const profile = useSelector((state) => state.profile.data);
   const role = profile.role;
+
   const router = useRouter();
 
   const search = () => {
@@ -51,7 +52,6 @@ const Landing = ({ token }) => {
   return (
     <div>
       <title>Welcome to MugLife</title>
-
       <Navbar token={token} />
       {/* Header Landing */}
       <header className={`${styles.bg_landing} hero h-[100vh] w-full md:px-20`}>
@@ -183,7 +183,7 @@ const Landing = ({ token }) => {
             <div className="carousel-item">
               <div className="w-80 flex flex-col justify-center items-center py-5 border-2 bg-white rounded-[10px] pt-[62px] pb-[50px] mb-[30px]">
                 <div className="mb-[30px]">
-                  <Image src={food2} alt="food2" className="rounded-[50%] shadow-xl mb-[53px]" />
+                  <Image height={140} width={140} priority={true} src={food2} alt="food2" className="rounded-[50%] shadow-xl mb-[53px]" />
                   <p className="text-[18px] leading-[30px] font-bold">Pinky Promisee</p>
                 </div>
                 <div className="flex flex-col grow gap-5 my-8">
@@ -217,7 +217,7 @@ const Landing = ({ token }) => {
             <div className="carousel-item">
               <div className="w-80 flex flex-col justify-center items-center py-5 border-2 bg-white rounded-[10px] pt-[62px] pb-[50px] mb-[30px]">
                 <div className="mb-[30px]">
-                  <Image src={food3} alt="food3" className="rounded-[50%] shadow-xl mb-[53px]" />
+                  <Image height={140} width={140} priority={true} src={food3} alt="food3" className="rounded-[50%] shadow-xl mb-[53px]" />
                   <p className="text-[18px] leading-[30px] font-bold">Chicken Wings</p>
                 </div>
                 <div className="flex flex-col grow gap-5 my-8">

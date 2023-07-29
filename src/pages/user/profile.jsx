@@ -77,7 +77,6 @@ function Profile({ token }) {
     setSelectedPicture(file);
     fileToDataUrl(file);
   };
-
   const doEditPicture = async (values) => {
     setLoading(true);
     let fullName;
@@ -111,7 +110,6 @@ function Profile({ token }) {
       setLoading(false);
     }
   };
-
   const openModal = () => {
     if (modalOpen === true) {
       setModalOpen(false);

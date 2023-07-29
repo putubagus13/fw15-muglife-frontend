@@ -22,7 +22,6 @@ function Header({token}) {
   const getProfile = React.useCallback(async()=>{
     try {
       const {data} = await http(token).get('/profile');
-      console.log(data.results);
       dispatch(setProfile(data.results));
     } catch (error) {
       const message = error?.response?.data?.message;
@@ -43,7 +42,7 @@ function Header({token}) {
     <nav className="fixed bg-white z-10 w-full">
       <div className="w-full h-20 lg:h-28 flex items-center justify-between px-11 lg:px-24 xl:px-40 shadow-md">
         <div className="flex-1 flex items-center justify-start">
-          <Image src={logo} width={100} alt="logo-head" />
+          <Image width={100} height={50} priority={true} src={logo} alt="logo-head" className='w-[100px] h-[50px]' />
         </div>
         <div className="flex-1 hidden lg:flex items-center justify-center gap-2 lg:gap-7">
           <Link href="/" className="text-base text-secondary hover:font-bold w-20 text-center">
@@ -72,37 +71,44 @@ function Header({token}) {
           </Link>
         </div>}
         {token && 
-          <div className="flex-1 hidden lg:flex justify-end items-center gap-6">
-            {router.pathname !== '/product' && router.pathname !== '/' && <>
-              {profile?.role === 'general' && <Link href="/product" className="flex justify-center items-center">
-                <LuSearch className="text-primary" size={27}/>
-              </Link>} </>}
-            {router.pathname !== '/admin/product' && router.pathname !== '/' && <>
-              {profile?.role === 'superadmin' && <Link href="/admin/product" className="flex flex-col justify-center items-center">
-                <LuSearch className="text-primary" size={27}/>
-              </Link>}</>}
+                    <div className="flex-1 hidden lg:flex justify-end items-center gap-6">
+                      {router.pathname !== '/product' && router.pathname !== '/' && <>
+                        {profile?.role === 'general' && <Link href="/product" className="flex justify-center items-center">
+                          <LuSearch className="text-primary" size={27}/>
+                        </Link>} </>}
+                      {router.pathname !== '/admin/product' && router.pathname !== '/' && <>
+                        {profile?.role === 'superadmin' && <Link href="/admin/product" className="flex flex-col justify-center items-center">
+                          <LuSearch className="text-primary" size={27}/>
+                        </Link>}</>}
+                      {
+                        profile?.role === 'superadmin' && 
+                      <Link href="/admin/room-chat" className='text-secondary'><BiChat size={30}/></Link>
+                      }
+                      {
+                        profile?.role === 'general' && 
+                      <Link href="/room-chat" className='text-secondary'><BiChat size={30}/></Link>
+                      }
 
-            <button className='text-secondary'><BiChat size={30}/></button>
+                      <div className="dropdown dropdown-end">
+                        <button tabIndex={0} className="w-16 h-16 overflow-hidden rounded-full">
+                          {profile?.picture ? (<Image width={150} height={150} className="object-fit" src={profile.picture} alt="userImage"/>) 
+                            : (<Image className="object-fit" src={User} alt="user"/>) }
+                        </button>
+                        <ul tabIndex={0} className="dropdown-content flex justify-center items-center menu p-2 pb-4 gap-4 shadow bg-white rounded-box w-60">
+                          <span href="/cart" className="font-bold text-base text-secondary hover:font-bold w-full text-center">
+                            {profile?.fullName}
+                          </span>
+                          <Link href="/user/profile" className="text-base text-secondary hover:font-bold w-20 text-center">
+                                    Profile
+                          </Link>
+                          {token && <button onClick={doLogout} className="flex justify-center gap-3 text-base text-secondary hover:font-bold text-center w-full">
+                            <MdOutlineLogout size={25}/>
+                                    Log out
+                          </button>}
+                        </ul>
+                      </div>
+                    </div>}
 
-            <div className="dropdown dropdown-end">
-              <button tabIndex={0} className="w-16 h-16 overflow-hidden rounded-full">
-                {profile?.picture ? (<Image width={150} height={150} className="object-fit" src={profile.picture} alt="userImage"/>) 
-                  : (<Image className="object-fit" src={User} alt="user"/>) }
-              </button>
-              <ul tabIndex={0} className="dropdown-content flex justify-center items-center menu p-2 pb-4 gap-4 shadow bg-white rounded-box w-60">
-                <span href="/cart" className="font-bold text-base text-secondary hover:font-bold w-full text-center">
-                  {profile?.fullName}
-                </span>
-                <Link href="/user/profile" className="text-base text-secondary hover:font-bold w-20 text-center">
-                          Profile
-                </Link>
-                {token && <button onClick={doLogout} className="flex justify-center gap-3 text-base text-secondary hover:font-bold w-20 text-center w-full">
-                  <MdOutlineLogout size={25}/>
-                          Log out
-                </button>}
-              </ul>
-            </div>
-          </div>}
         <div className="block lg:hidden dropdown dropdown-end z-10">
           <label tabIndex={0}>
             <HiOutlineViewList size={30} className="text-secondary" />

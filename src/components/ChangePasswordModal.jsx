@@ -13,7 +13,6 @@ const ChangePasswordModal = ({ token }) => {
   const [successMessage, setSuccessMessage] = React.useState('');
 
   const doChangePassword = async (event) => {
-    console.log(token);
     setErrorMessage('');
     try{
       setLoading(true);
@@ -21,26 +20,20 @@ const ChangePasswordModal = ({ token }) => {
       const {value: oldPassword} = event.target.oldPassword;
       const {value: newPassword} = event.target.newPassword;
       const {value: confirmNewPassword} = event.target.confirmNewPassword;
-      console.log(oldPassword, newPassword, confirmNewPassword);
       if(newPassword !== confirmNewPassword){
         setErrorMessage('Password and Confirm Password do not match');
         setLoading(false);
         return;
       }
       const body = new URLSearchParams({oldPassword, newPassword, confirmNewPassword});
-      console.log(body);
       const {data} = await http(token).patch('/changePassword', body);
-      console.log(data);
       if(data){
         setSuccessMessage('Successfully changed password');
         setLoading(false);
       }
     }catch(err){
-      console.log(err);
       const message = err?.response?.data?.message;
       const results = err?.response?.data?.results;
-      console.log(message);
-      console.log(results);
       if(err.message === 'Network Error'){
         setErrorMessage(err.message);
         setLoading(false);
