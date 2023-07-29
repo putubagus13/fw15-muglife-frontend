@@ -181,30 +181,32 @@ const EditProduct = ({token}) => {
       <Navbar token={token}></Navbar>
 
       {/* Konten */}
-      <main className='relative bg-[#E5E5CB] pt-[150px] pb-[10%]'>
-        <div className='flex'>
-          <div className='ml-[5%]'>
-            <div className='flex gap-0.5'>
+      <main className='relative w-full bg-[#E5E5CB] pt-[150px] pb-[10%]'>
+        <div className='flex flex-col lg:flex-row w-full'>
+          <div className='flex-1 flex flex-col w-full px-[10%]'>
+            <div className='flex gap-0.5 items-left'>
               <div className='text-[#9c9674]'>Favorite & Promo {'>'}</div>
               <div className='text-[#9c9674]'>{product.name} {'>'}</div>
               <div className='text-[#3C2A21] font-semibold'>Edit Product</div>
             </div>
 
-            <div className='relatif flex flex-col justify-center items-center mt-[40px] overflow-hidden w-[523px] h-[790px]'>
-              <div className='absolute pb-[700px] pl-[430px]'>
-                <div className="border-1 w-[50px] h-[50px] rounded-[50%] bg-[#D5CEA3] flex justify-center items-center ">
-                  <div>
-                    <a href="#my-modal-2">
-                      <div className="border-1 bg-[#D5CEA3] w-[40px] h-[40px]  rounded-[50%] flex items-center justify-center">
-                        <BiTrash className=" w-[18px] h-[20px] text-[#3C2A21]" />
-                      </div>
-                    </a>
-                    <ModalDelete />
+            <div className='w-full h-full flex justify-center'>
+              <div className='relative flex justify-center items-center mt-[40px] overflow-hidden w-full h-full'>
+                <div className='absolute right-5 top-2 '>
+                  <div className="border-1 w-[50px] h-[50px] rounded-[50%] bg-[#D5CEA3] flex justify-center items-center ">
+                    <div>
+                      <a href="#my-modal-2">
+                        <div className="border-1 bg-[#D5CEA3] w-[40px] h-[40px]  rounded-[50%] flex items-center justify-center">
+                          <BiTrash className=" w-[18px] h-[20px] text-[#3C2A21]" />
+                        </div>
+                      </a>
+                      <ModalDelete />
+                    </div>
                   </div>
                 </div>
+                {product.picture ? (<Image width={400} height={400} src={product.picture} className="h-full w-full object-cover" alt="desc"/>) 
+                  : (<Image src={ProductImage} className="w-[523px] h-[790px]" alt="desc"/>) }
               </div>
-              {product.picture ? (<Image width={400} height={400} src={product.picture} className="h-[790px] w-full object-cover" alt="desc"/>) 
-                : (<Image src={ProductImage} className="w-[523px] h-[790px]" alt="desc"/>) }
             </div>
 
             <div className='pt-10 text-xl text-[#3C2A21]'>
@@ -226,37 +228,41 @@ const EditProduct = ({token}) => {
 
           > 
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
-              <form onSubmit={handleSubmit} className='ml-[10%] pt-[80px]'>
+              <form onSubmit={handleSubmit} className='ml-[10%] pt-[80px] flex-1'>
                 <div className=''>
                   <div className='pb-5'>
                     <h1 className='text-5xl text-[#3C2A21] font-[800]'>{product.name}</h1>
                   </div>
 
-                  <hr className='w-[500px] bg-[#3C2A21] h-0.5' />
+                  <div className='w-full pr-[15%]'>
+                    <hr className='w-full bg-[#3C2A21] h-0.5' />
+                  </div>
 
                   <div className='pt-5 pb-5 flex w-full gap-10 items-center'>
                     {!edit && <div className="text-3xl text-secondary font-semibold py-6">{`IDR${Number(variant[0]?.price).toLocaleString('id')}`}</div>}
                     {edit &&
-                                            <div className='flex flex-col gap-1'>
-                                              <Field
-                                                type="text"
-                                                name="price"
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                value={values.price}
-                                                className=" input outline-none bg-white font-semibold text-[#3C2A21]"
-                                                placeholder="Type the price"
-                                              />
-                                              {errors.price && touched.price && (
-                                                <label className="label">
-                                                  <span className="label-text-alt text-error text-[16px]">{errors.price}</span>
-                                                </label>
-                                              )}
-                                            </div> }
+                      <div className='flex flex-col gap-1'>
+                        <Field
+                          type="text"
+                          name="price"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.price}
+                          className=" input outline-none bg-white font-semibold text-[#3C2A21]"
+                          placeholder="Type the price"
+                        />
+                        {errors.price && touched.price && (
+                          <label className="label">
+                            <span className="label-text-alt text-error text-[16px]">{errors.price}</span>
+                          </label>
+                        )}
+                      </div> }
                     <label onClick={doEdit} className='flex gap-3 justify-center items-center text-xl text-secondary'><FiEdit size={25}/>Edit</label>
                   </div>
 
-                  <hr className='w-[500px] bg-[#3C2A21] h-0.5' />
+                  <div className='w-full pr-[15%]'>
+                    <hr className='w-full bg-[#3C2A21] h-0.5' />
+                  </div>
 
                   <div className='w-[500px] pt-5 pb-5'>
                     {edit && <>
@@ -279,8 +285,9 @@ const EditProduct = ({token}) => {
                       {product?.descriptions}
                     </div>}
                   </div>
-
-                  <hr className='w-[500px] bg-[#3C2A21] h-0.5' />
+                  <div className='w-full pr-[15%]'>
+                    <hr className='w-full bg-[#3C2A21] h-0.5' />
+                  </div>
                 </div>
 
                 <div className='pt-10 pr-10'>
@@ -303,7 +310,7 @@ const EditProduct = ({token}) => {
                 </div>
 
                 <div className='pt-5 pr-10'>
-                  <div className="w-full flex items-center justify-between gap-1 md:gap-5">
+                  <div className="w-full flex items-center justify-around gap-1 md:gap-5">
                     <label onClick={() => handleDelivery('homeDelivery')} htmlFor="homeDelivery" className={`btn ${btnHD} w-24 xl:w-44 capitalize text-primary`}>
                                             Home delivery
                       <Field value="2" type="radio" name="product_delivery_id" id="homeDelivery" className="appearance-none" />

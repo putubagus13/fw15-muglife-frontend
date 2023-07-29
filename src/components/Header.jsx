@@ -41,7 +41,7 @@ function Header({token}) {
 
   return (
     <nav className="fixed bg-white z-10 w-full">
-      <div className="w-full h-28 flex items-center justify-between px-11 lg:px-24 xl:px-40 shadow-sm">
+      <div className="w-full h-20 lg:h-28 flex items-center justify-between px-11 lg:px-24 xl:px-40 shadow-md">
         <div className="flex-1 flex items-center justify-start">
           <Image src={logo} width={100} alt="logo-head" />
         </div>

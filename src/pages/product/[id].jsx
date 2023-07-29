@@ -186,9 +186,9 @@ const ProductDetails = ({ token }) => {
 
       {/* Konten */}
       <main className="relative bg-[#E5E5CB] pt-[150px] pb-[10%]">
-        <div className="flex">
-          <div className="ml-[5%]">
-            <div className="flex gap-0.5 text-gray-500">
+        <div className="flex flex-col lg:flex-row w-full">
+          <div className="flex-1 justiify-center">
+            <div className="flex gap-0.5 text-gray-500 px-3">
               <div>Favorite & Promo {'>'}</div>
               <div className="text-[#3C2A21] font-semibold">{product?.name}</div>
             </div>
@@ -215,7 +215,7 @@ const ProductDetails = ({ token }) => {
             </div>
           </div>
 
-          <div className="ml-[10%]">
+          <div className="flex-1 justify-center px-[5%] pt-[5%]">
             <div className="bg-[#FFFFFF] px-[84px] py-[10%] w-full rounded-lg">
               <div className="text-gray-500">
                 <div>Delivery only on Monday to </div>
@@ -279,8 +279,8 @@ const ProductDetails = ({ token }) => {
         </div>
       </main>
 
-      <div className="flex bg-[#F8EDE3] justify-center items-center gap-[48px] mr-[-100px]">
-        <div className="absolute flex bg-[#FFFFFF] justify-center items-center rounded-lg px-[32px] py-[28px] gap-[46px] mr-[450px] shadow-lg shadow-gray-600">
+      <div className="flex flex-col w-full lg:flex-row bg-[#E5E5CB] justify-center items-center gap-5 lg:gap-[48px] mr-[-100px]">
+        <div className="flex lg:absolute bg-[#FFFFFF] justify-center items-center rounded-lg px-[32px] py-[28px] gap-[46px] lg:mr-[450px] shadow-lg shadow-gray-600">
           <div>
             <Image src={coffee} className="rounded-full" width="50" height="50" alt="desc"></Image>
           </div>
@@ -289,7 +289,7 @@ const ProductDetails = ({ token }) => {
             {charts.map((items) => {
               return (
                 <div key={`charts-me-${items.id}`} className="text-[#745241]">
-                                    x{items.quantity} {items.variant === 'R' ? 'Regular' : items.variant === 'L' ? 'Large' : items.variant === 'XL' ? 'Extra Large' : items.variant}
+                  x{items.quantity} {items.variant === 'R' ? 'Regular' : items.variant === 'L' ? 'Large' : items.variant === 'XL' ? 'Extra Large' : items.variant}
                 </div>
               );
             })}
@@ -298,17 +298,17 @@ const ProductDetails = ({ token }) => {
           </div>
           <div className="flex gap-[27px]">
             <button onClick={handleDecrement} className="bg-[#3C2A21] cursor-pointer h-10 w-10 rounded-full flex justify-center items-center">
-                            -
+              -
             </button>
             <div className="text-[#745241] font-semibold text-[25px]">{quantityItem}</div>
             <button onClick={handleIncrement} className="bg-[#3C2A21] cursor-pointer h-10 w-10 rounded-full flex justify-center items-center">
-                            +
+              +
             </button>
           </div>
         </div>
-        <div className="absolute flex ml-[300px]">
-          <button onClick={() => processAddTransaction(charts)} className=" bg-[#3C2A21] hover:bg-[#5a3f32] py-[45px] px-[57px] rounded-lg shadow-lg shadow-gray-600 text-white font-bold text-[25px]">
-                        Checkout
+        <div className="flex lg:absolute lg:ml-[300px]">
+          <button onClick={() => processAddTransaction(charts)} className=" bg-[#3C2A21] hover:bg-[#5a3f32] py-6 lg:py-[45px] px-[57px] mb-3 rounded-lg shadow-lg shadow-gray-600 text-white font-bold text-[25px]">
+            Checkout
           </button>
         </div>
       </div>
