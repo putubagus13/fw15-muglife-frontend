@@ -78,7 +78,6 @@ function ResetPassword() {
       console.log(form);
 
       const { data } = await http().post('/auth/resetPassword', form);
-      console.log(data);
       if (data.message) {
         setSuccessMessage(data.message);
         router.push('/auth/login');

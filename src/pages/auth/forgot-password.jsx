@@ -78,7 +78,6 @@ function ForgotPassword() {
       const { value: email } = event.target.email;
       const form = new URLSearchParams({ email }).toString();
       const { data } = await http().post('/auth/forgotPassword', form);
-      console.log(data);
       if (data.success === true) {
         dispatch(saveEmail(email));
         router.push('/auth/reset-password');
