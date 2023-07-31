@@ -92,7 +92,9 @@ function Profile({ token }) {
         form.append(key, values[key]);
       }
     });
-    form.append('fullName', fullName);
+    if(fullName){
+      form.append('fullName', fullName);
+    }
     if (selectedPicture) {
       form.append('picture', selectedPicture);
     }
