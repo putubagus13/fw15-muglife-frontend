@@ -1,84 +1,84 @@
-import Footer from '@/components/Footer'
-import Header from '@/components/Header'
-import Head from 'next/head'
-import React from 'react'
-import Image from 'next/image'
-import { AiFillCreditCard, AiOutlineLoading3Quarters, AiTwotoneBank } from 'react-icons/ai'
-import { MdDeliveryDining } from 'react-icons/md'
-import ProductImage from '@/assets/ecommerce-default-product.png'
-import cookieConfig from '@/helpers/cookieConfig'
-import { withIronSessionSsr } from 'iron-session/next'
-import checkCredentials from '@/helpers/checkCredentials'
-import { useSelector } from 'react-redux'
-import http from '@/helpers/http.helper'
-import { useRouter } from 'next/router'
-import styles from '../styles/Home.module.css'
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import Head from 'next/head';
+import React from 'react';
+import Image from 'next/image';
+import { AiFillCreditCard, AiOutlineLoading3Quarters, AiTwotoneBank } from 'react-icons/ai';
+import { MdDeliveryDining } from 'react-icons/md';
+import ProductImage from '@/assets/ecommerce-default-product.png';
+import cookieConfig from '@/helpers/cookieConfig';
+import { withIronSessionSsr } from 'iron-session/next';
+import checkCredentials from '@/helpers/checkCredentials';
+import { useSelector } from 'react-redux';
+import http from '@/helpers/http.helper';
+import { useRouter } from 'next/router';
+import styles from '../styles/Home.module.css';
 
 export const getServerSideProps = withIronSessionSsr(async function getServerSideProps({ req, res }) {
-  const token = req.session?.token
-  checkCredentials(token, res, '/auth/login')
+  const token = req.session?.token;
+  checkCredentials(token, res, '/auth/login');
 
   return {
     props: {
       token,
     },
-  }
-}, cookieConfig)
+  };
+}, cookieConfig);
 
 function PaymmentAndDelivery({ token }) {
-  const profile = useSelector((state) => state.profile.data)
-  const router = useRouter()
-  const [transaction, setTransaction] = React.useState([])
-  const [paymentMethod, setPaymentMethod] = React.useState([])
-  const [selectedPayment, setSelectedPayment] = React.useState(1)
-  const [openModal, setOpenModoal] = React.useState(false)
+  const profile = useSelector((state) => state.profile.data);
+  const router = useRouter();
+  const [transaction, setTransaction] = React.useState([]);
+  const [paymentMethod, setPaymentMethod] = React.useState([]);
+  const [selectedPayment, setSelectedPayment] = React.useState(1);
+  const [openModal, setOpenModoal] = React.useState(false);
 
   // const grandTotal = (parseInt(transaction[0]?.total) * 10) / 100 + parseInt(transaction[0]?.total);
   // console.log(grandTotal);
 
   const getPM = React.useCallback(async () => {
     try {
-      const { data } = await http().get('/payment-method')
-      setPaymentMethod(data.results)
+      const { data } = await http().get('/payment-method');
+      setPaymentMethod(data.results);
     } catch (error) {
-      const message = error?.response?.data?.message
-      return console.log('error fetching data')
+      const message = error?.response?.data?.message;
+      return console.log('error fetching data');
     }
-  }, [])
+  }, []);
 
   // console.log(paymentMethod);
   const getTransaction = React.useCallback(async () => {
     try {
-      const { data } = await http(token).get('/transactions')
-      setTransaction(data.results)
+      const { data } = await http(token).get('/transactions');
+      setTransaction(data.results);
     } catch (error) {
-      const message = error?.response?.data?.message
-      return console.log('error fetching data')
+      const message = error?.response?.data?.message;
+      return console.log('error fetching data');
     }
-  }, [token])
+  }, [token]);
 
   const doPayment = async (e) => {
-    e.preventDefault()
-    setOpenModoal(true)
+    e.preventDefault();
+    setOpenModoal(true);
 
-    const trId = transaction[0]?.id
-    const totalPay = (parseInt(transaction[0]?.total) * 10) / 100 + parseInt(transaction[0]?.total)
+    const trId = transaction[0]?.id;
+    const totalPay = (parseInt(transaction[0]?.total) * 10) / 100 + parseInt(transaction[0]?.total);
     const form = new URLSearchParams({
       id: trId,
       payment_method: selectedPayment,
       total: totalPay,
-    }).toString()
+    }).toString();
 
     // console.log(form);
-    const { data } = await http(token).post('/payment-method', form)
-    router.push('/history')
-    setOpenModoal(false)
-  }
+    const { data } = await http(token).post('/payment-method', form);
+    router.push('/history');
+    setOpenModoal(false);
+  };
 
   React.useEffect(() => {
-    getTransaction()
-    getPM()
-  }, [getTransaction, getPM])
+    getTransaction();
+    getPM();
+  }, [getTransaction, getPM]);
 
   // console.log(transaction[0]);
   return (
@@ -107,7 +107,7 @@ function PaymmentAndDelivery({ token }) {
                       </div>
                       <div className='h-full flex items-center justify-center text-primary text-lg'>IDR {item?.price}</div>
                     </div>
-                  )
+                  );
                 })}
 
                 <div className='w-full border-t border-grey-600 flex flex-col items-center gap-2 pt-7'>
@@ -195,7 +195,7 @@ function PaymmentAndDelivery({ token }) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default PaymmentAndDelivery
+export default PaymmentAndDelivery;
